@@ -1092,13 +1092,18 @@
     }
     /* Desktop: anchor the calculator to the TOP-RIGHT of the viewport so it
        stays visible at the same screen position as the user scrolls down.
-       To prevent it overlapping main content, when the calc is shown we add
-       a `calc-shown` class to <body> that gives main extra right padding —
-       this carves out a reserved column for the calc inside the page layout. */
+       To prevent it overlapping main content (and to keep main visually
+       centered in the *remaining* viewport space), when the calc is shown
+       we add a `calc-shown` class to <body> that gives the body itself an
+       extra right padding. This shrinks the viewport's content area by the
+       calc column's width — main and the header then both center naturally
+       within the leftover space. (`position: fixed` on the calc still
+       anchors to the viewport, not the body, so the calc sits in the
+       reserved column on the right.) */
     @media (min-width: 721px) {
       #calculatorContainer:not([hidden]) {
         position: fixed;
-        right: 1.5rem;
+        right: 2rem;
         top: 5rem;
         z-index: 100;
         width: 240px;
@@ -1109,16 +1114,8 @@
         max-width: 240px;
         box-shadow: var(--shadow-2);
       }
-      body.calc-shown main {
-        /* Reserve space on the right of main for the floating calculator
-           so content never gets hidden behind it.
-           240px calc + 1.5rem right-edge gap + 1.5rem internal gap = ~288px */
-        padding-right: calc(1.5rem + 240px + 1.5rem);
-      }
-      /* Also nudge the header slightly so the right edge of its content
-         aligns with main's reduced width. */
-      body.calc-shown .site-header {
-        padding-right: calc(1.5rem + 240px + 1.5rem);
+      body.calc-shown {
+        padding-right: calc(240px + 3rem);
       }
     }
     /* Mobile: in-flow, with a top margin to separate from the buttons above. */
@@ -2230,7 +2227,7 @@
             <button type="button" class="calc-key fn" data-act="clear" aria-label="Clear">AC</button>
             <button type="button" class="calc-key fn" data-act="sign" aria-label="Toggle sign">±</button>
             <button type="button" class="calc-key fn" data-act="back" aria-label="Backspace">⌫</button>
-            <button type="button" class="calc-key op" data-op="/" aria-label="Divide">/</button>
+            <button type="button" class="calc-key op" data-op="/" aria-label="Divide">÷</button>
 
             <button type="button" class="calc-key" data-digit="7">7</button>
             <button type="button" class="calc-key" data-digit="8">8</button>
