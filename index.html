@@ -244,9 +244,10 @@
     .tubes-row {
       display: grid;
       /* 7 EQUAL columns: tube, arrow, tube, arrow, tube, arrow, tube.
-         All seven have identical width, so the arrows sit exactly at the
-         midpoint of the gap between tubes — perfect symmetry by construction. */
-      grid-template-columns: repeat(7, 1fr);
+         minmax(0, 1fr) keeps columns truly equal — without the `0` minimum,
+         a wide piece of content (like a long diluent pill) would expand its
+         column past the others, throwing off centering. */
+      grid-template-columns: repeat(7, minmax(0, 1fr));
       gap: 0;
       align-items: start;
       position: relative;
@@ -401,8 +402,8 @@
     }
     .plates-row {
       display: grid;
-      /* Mirror tubes-row exactly: 7 equal columns. */
-      grid-template-columns: repeat(7, 1fr);
+      /* Mirror tubes-row exactly: 7 equal columns with minmax for stability. */
+      grid-template-columns: repeat(7, minmax(0, 1fr));
       gap: 0;
       align-items: start;
       padding: 0.5rem 0 0.5rem;
@@ -1067,16 +1068,88 @@
       padding: 0.15rem 0.5rem 0;
     }
 
-    /* ---------- Calculator ---------- */
+    /* ---------- Calculator ----------
+       On desktop the calculator floats at the right edge of the viewport so
+       students can keep it visible while scrolling through the problem. On
+       mobile screens (≤ 720px) it falls back into the document flow, sitting
+       beneath the answer buttons where the toggle put it. */
+    #calculatorContainer {
+      /* Sensible default — the actual desktop float positioning lives in
+         the calculator class below. The container is just a hidden/visible
+         shell; on mobile it stays in normal flow. */
+    }
     .calculator {
-      margin: 1rem 0 0.5rem;
-      max-width: 320px;
+      max-width: 300px;
       padding: 0.85rem;
       background: var(--paper);
       border: 1px solid var(--rule);
       border-radius: var(--radius);
       box-shadow: var(--shadow-1);
       animation: slideIn 0.25s ease-out;
+    }
+    /* Desktop: float at the bottom-right of the viewport so it stays
+       accessible while not blocking the main reading column. */
+    @media (min-width: 721px) {
+      #calculatorContainer:not([hidden]) {
+        position: fixed;
+        right: 1.25rem;
+        bottom: 1.25rem;
+        z-index: 100;
+        width: 280px;
+        max-width: 280px;
+      }
+      .calculator {
+        margin: 0;
+        max-width: 280px;
+        box-shadow: var(--shadow-2);  /* stronger shadow when floating */
+      }
+    }
+    /* Mobile: in-flow, with a top margin to separate from the buttons above. */
+    @media (max-width: 720px) {
+      .calculator {
+        margin: 0.85rem auto 0.5rem;
+        max-width: 320px;
+      }
+    }
+
+    .calc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .calc-title {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      font-weight: 600;
+    }
+    .calc-close {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--ink-muted);
+      font-size: 1.1rem;
+      width: 1.6rem;
+      height: 1.6rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      line-height: 1;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .calc-close:hover {
+      background: var(--paper-2);
+      border-color: var(--rule);
+      color: var(--ink);
+    }
+    .calc-close:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 1px;
     }
     .calc-display {
       font-family: var(--font-mono);
@@ -1181,25 +1254,51 @@
       .plate-info strong { font-size: 0.92rem; }
       .tube-label { font-size: 0.7rem; }
       .tube-label .tube-name { font-size: 0.78rem; }
-      .tube-label .diluent { font-size: 0.66rem; padding: 0.12rem 0.4rem; gap: 0.25rem; }
-      .tube-label .diluent .dil-tag { font-size: 0.6rem; }
       .tube-cell { padding: 0; }
+      /* Mobile diluent label: drop the pill chrome and use plain stacked text.
+         Fits inside the narrow tube column without horizontal overflow that
+         would push the column wider than its 1/7 share of the row. */
+      .tube-label .diluent {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        padding: 0;
+        margin-top: 0.25rem;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        white-space: normal;
+        font-size: 0.62rem;
+        line-height: 1.15;
+        max-width: 100%;
+      }
+      .tube-label .diluent .dil-amt {
+        font-weight: 700;
+        font-size: 0.66rem;
+        white-space: nowrap;
+      }
+      .tube-label .diluent .dil-tag {
+        font-size: 0.56rem;
+        margin-top: 0.05rem;
+        letter-spacing: 0.05em;
+      }
       .toolbar { width: 100%; }
       .toolbar > * { flex: 1; }
       .toolbar .toggle { flex: 1; justify-content: space-between; }
     }
 
     @media (max-width: 480px) {
-      .site-header { padding-top: 1.5rem; }
-      main { padding-top: 1rem; }
-      .card { padding: 1.1rem 1rem 1.3rem; }
+      .site-header { padding-top: 1.5rem; padding-left: 1rem; padding-right: 1rem; }
+      main { padding: 1rem 0.85rem 2rem; }
+      .card { padding: 1.1rem 0.85rem 1.3rem; }
       h1 { font-size: 2rem; }
       .answer-input { font-size: 0.95rem; padding-right: 4.5rem; }
       .dilution-factor { font-size: 0.62rem; padding: 0.1rem 0.3rem; }
       .dilution-factor .lbl { font-size: 0.5rem; }
       .dilution-arrow svg { width: 18px; height: 9px; }
-      .tube-label .diluent { font-size: 0.6rem; padding: 0.1rem 0.3rem; }
-      .tube-label .diluent .dil-tag { font-size: 0.54rem; }
+      .tube-label .diluent .dil-amt { font-size: 0.6rem; }
+      .tube-label .diluent .dil-tag { font-size: 0.52rem; }
     }
 
     /* Reduced motion */
@@ -2102,6 +2201,10 @@
       c.hidden = false;
       c.innerHTML = `
         <div class="calculator" role="region" aria-label="Calculator">
+          <div class="calc-header">
+            <span class="calc-title">Calculator</span>
+            <button type="button" class="calc-close" aria-label="Hide calculator" data-act="close">✕</button>
+          </div>
           <div class="calc-history" aria-hidden="true"></div>
           <div class="calc-display" aria-live="polite" aria-atomic="true">
             <span class="calc-display-val">0</span>
@@ -2133,7 +2236,7 @@
           </div>
         </div>`;
 
-      // Wire up clicks
+      // Wire up clicks for keys
       c.querySelectorAll(".calc-key").forEach(btn => {
         btn.addEventListener("click", () => {
           if (btn.dataset.digit !== undefined) calcInputDigit(btn.dataset.digit);
@@ -2144,6 +2247,16 @@
           else if (btn.dataset.act === "sign") calcSignFlip();
         });
       });
+
+      // Close button — same effect as the "Hide calculator" toggle.
+      const closeBtn = c.querySelector(".calc-close");
+      if (closeBtn) {
+        closeBtn.addEventListener("click", () => {
+          clearCalculator();
+          const calcBtn = document.getElementById("calculatorBtn");
+          if (calcBtn) calcBtn.textContent = "Show calculator";
+        });
+      }
 
       calcRender();
     }
