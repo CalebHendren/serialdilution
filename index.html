@@ -15,6 +15,12 @@
        Warm off-white paper, deep teal accent, oxblood error,
        brass-yellow focus rings for high-visibility a11y. */
     :root {
+      /* Opt out of OS-level dark mode. The <meta name="color-scheme">
+         tag declares the same intent, but iOS Safari occasionally ignores
+         the meta tag and applies an auto-inversion filter that makes the
+         warm paper background look brown. The CSS property is authoritative. */
+      color-scheme: light only;
+
       --paper:        #f4ece0;
       --paper-2:      #ece2d2;
       --paper-3:      #e2d6c1;
@@ -304,8 +310,10 @@
       color: var(--ink-soft);
       text-align: center;
       font-weight: 600;
-      /* Fixed height so all 4 tubes line up regardless of label content. */
-      height: 3.4em;
+      /* min-height (not fixed height) so the label can grow when the diluent
+         badge stacks onto multiple lines on mobile; on desktop the pill is
+         one line and the min provides a consistent baseline below the tube. */
+      min-height: 3.4em;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -1491,8 +1499,7 @@
 
     let state = {
       problem: null,        // current problem object
-      attemptsLeft: 3,
-      attemptsUsed: 0,
+      attemptsUsed: 0,      // remaining attempts derived as (3 - attemptsUsed)
       finished: false,
       sciMode: false
     };
@@ -2078,7 +2085,7 @@
     const calc = {
       display: "0",          // current display string
       previous: null,        // previous operand (number) when an op is pending
-      operator: null,        // pending operator: '+', '-', '×', '/'
+      operator: null,        // pending operator: '+', '−', '×', '/'
       justEvaluated: false,  // true right after '=' so next digit starts fresh
       replaceNext: true      // true means next digit replaces display
     };
@@ -2289,57 +2296,10 @@
        FRACTION HELPERS
        ============================================================ */
 
-    /**
-     * Given a cumulative dilution like 0.001, format it as "1/1000" in
-     * a clean way for display. We use the actual product of the step labels
-     * for accuracy (since 1/3 etc. cause float drift).
-     */
-    function formatTotalDilutionFromSteps(stepLabels) {
-      // Each label is like "1/10", "1/5", "2/3", etc.
-      // Multiply numerators and denominators as integers.
-      let num = 1, den = 1;
-      for (const lbl of stepLabels) {
-        const [n, d] = lbl.split("/").map(Number);
-        num *= n;
-        den *= d;
-      }
-      // Reduce
-      const g = gcd(num, den);
-      num /= g; den /= g;
-      if (num === 1) return `1/${den.toLocaleString("en-US")}`;
-      return `${num}/${den}`;
-    }
-
-    function formatTotalDilutionDenominator(cumulative) {
-      // Approximate denominator as 1 / cumulative, rounded
-      const denom = Math.round(1 / cumulative);
-      return denom.toLocaleString("en-US");
-    }
-
-    function formatFractionForAria(cumulative) {
-      const denom = Math.round(1 / cumulative);
-      return `1 over ${denom}`;
-    }
-
     function gcd(a, b) {
       a = Math.abs(a); b = Math.abs(b);
       while (b) { [a, b] = [b, a % b]; }
       return a;
-    }
-
-    /**
-     * Reciprocal of total dilution as a clean number ("× 1000" instead of × 0.001).
-     */
-    function reciprocalAsNumber(stepLabels) {
-      let num = 1, den = 1;
-      for (const lbl of stepLabels) {
-        const [n, d] = lbl.split("/").map(Number);
-        num *= n;
-        den *= d;
-      }
-      // reciprocal = den / num
-      const recip = den / num;
-      return recip;
     }
 
     /**
@@ -2355,11 +2315,6 @@
       return null;
     }
 
-    /**
-     * Format a step label "p/q" for display. In sci mode, if it's of the form
-     * 1 / 10ⁿ (i.e. 1/10, 1/100, 1/1000…) we show 1 × 10⁻ⁿ. Otherwise we show
-     * the plain fraction (e.g. 1/2, 1/5, 2/3 stay as fractions).
-     */
     /**
      * Format a stepwise dilution label for use in a "× FACTOR" context
      * (e.g., the inter-tube badges, and the multiplication chain in the
@@ -2682,11 +2637,14 @@
     function finishUI() {
       document.getElementById("submitBtn").disabled = true;
       document.getElementById("answerInput").disabled = true;
-      // Scroll the solution into view (respects reduced motion)
+      // Scroll the solution into view (respects reduced motion).
+      // We scroll the container element itself rather than its first child:
+      // template literals start with whitespace, so `firstChild` would be a
+      // text node — and text nodes don't have scrollIntoView.
       setTimeout(() => {
         const sol = document.getElementById("solutionContainer");
-        if (sol && sol.firstChild) {
-          sol.firstChild.scrollIntoView({ behavior: "smooth", block: "start" });
+        if (sol && sol.children.length > 0) {
+          sol.scrollIntoView({ behavior: "smooth", block: "start" });
         }
       }, 100);
     }
@@ -2696,7 +2654,6 @@
        ============================================================ */
     function newProblem() {
       state.problem = generateProblem();
-      state.attemptsLeft = 3;
       state.attemptsUsed = 0;
       state.finished = false;
 
@@ -2738,13 +2695,11 @@
         state.sciMode = sciCheckbox.checked;
         saveSciMode(state.sciMode);
         sciToggleEl.classList.toggle("on", state.sciMode);
-        // Re-render any visible elements so numbers update
-        if (state.problem) {
-          renderProblemText(state.problem);
-          renderTubes(state.problem); // dilution-factor labels respect sci mode
-          if (state.finished) {
-            renderSolution(state.problem);
-          }
+        // Re-render anything where sci mode changes the displayed numbers.
+        // Tube/plate diagrams show literal volumes and counts — those don't
+        // change with sci mode — so we only need to refresh the solution.
+        if (state.problem && state.finished) {
+          renderSolution(state.problem);
         }
         // Update placeholder hint
         document.getElementById("answerInput").placeholder =
