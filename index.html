@@ -2702,12 +2702,6 @@
       renderProblemText(state.problem);
       renderTubes(state.problem);
       renderPlates(state.problem);
-
-      // Move focus to the answer input for keyboard users
-      // (slight delay so screen readers announce the new problem first)
-      setTimeout(() => {
-        document.getElementById("answerInput").focus();
-      }, 50);
     }
 
     /* ============================================================
