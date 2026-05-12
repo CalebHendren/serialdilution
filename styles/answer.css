@@ -1,0 +1,148 @@
+/* ============================================================
+   Answer area — input, attempts dots, feedback
+   ============================================================ */
+
+.answer-section {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.answer-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
+.input-group {
+  flex: 1 1 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.input-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.02em;
+}
+.answer-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+}
+.answer-input {
+  flex: 1;
+  width: 100%;
+  padding: 0.85rem 5.5rem 0.85rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  color: var(--ink);
+  background: var(--input-bg);
+  border: 2px solid var(--rule);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.15s ease, background 0.15s ease;
+  min-height: var(--touch-target);
+}
+.answer-input::placeholder {
+  color: var(--ink-muted);
+  opacity: 0.85;
+}
+.answer-input:focus {
+  outline: 3px solid var(--focus);
+  outline-offset: 1px;
+  border-color: var(--teal);
+  background: var(--input-bg-focus);
+}
+.answer-input:disabled {
+  background: var(--paper-2);
+  color: var(--ink-muted);
+}
+.answer-input-suffix {
+  position: absolute;
+  right: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+  pointer-events: none;
+  font-weight: 500;
+}
+
+.input-help {
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  font-style: italic;
+}
+
+/* ---------- Attempts indicator ---------- */
+.attempts {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+}
+.attempts-dots {
+  display: inline-flex;
+  gap: 0.35rem;
+}
+.attempt-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--rule);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.attempt-dot.used {
+  background: var(--oxblood);
+  border-color: var(--oxblood);
+}
+.attempt-dot.correct {
+  background: var(--moss);
+  border-color: var(--moss);
+}
+
+/* ---------- Feedback ---------- */
+.feedback {
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  border: 1px solid transparent;
+  animation: slideIn 0.25s ease-out;
+}
+.feedback-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+}
+.feedback.error {
+  background: var(--oxblood-soft);
+  border-color: var(--oxblood);
+  color: var(--feedback-error-text);
+}
+.feedback.success {
+  background: var(--moss-soft);
+  border-color: var(--moss);
+  color: var(--feedback-success-text);
+}
+.feedback.warning {
+  background: var(--amber-soft);
+  border-color: var(--amber);
+  color: var(--feedback-warning-text);
+}
+.feedback strong { font-weight: 700; }
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

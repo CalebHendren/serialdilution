@@ -1,0 +1,340 @@
+/* ============================================================
+   Solution — worked solution panel, dilution table,
+   derivation list, equation reveal
+   ============================================================ */
+
+.solution {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--teal);
+  border-radius: var(--radius-sm);
+}
+.solution-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.solution h3 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--teal-deep);
+}
+.solution-answer {
+  background: var(--paper);
+  border: 1px solid var(--teal);
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1rem;
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  color: var(--ink);
+}
+.solution-answer strong {
+  color: var(--teal-deep);
+  font-weight: 700;
+}
+.step {
+  margin-bottom: 1.1rem;
+  padding-left: 1.75rem;
+  position: relative;
+}
+.step:last-child { margin-bottom: 0; }
+.step-num {
+  position: absolute;
+  left: 0;
+  top: 0.05rem;
+  width: 1.4rem;
+  height: 1.4rem;
+  background: var(--teal);
+  color: var(--paper);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.step-title {
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 0.25rem;
+}
+.step-body {
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+.step-body code,
+.math {
+  font-family: var(--font-mono);
+  background: var(--paper);
+  border: 1px solid var(--rule-soft);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  color: var(--teal-deep);
+  font-size: 0.92em;
+  font-weight: 500;
+}
+
+.step-list {
+  margin: 0.4rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.3rem;
+}
+.step-list li {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  padding: 0.2rem 0;
+}
+.step-list .arr {
+  color: var(--teal);
+  margin: 0 0.4rem;
+}
+
+/* ---------- Dilution table ---------- */
+.dil-table-wrap {
+  margin: 0.75rem 0 0.25rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--rule-soft);
+  background: var(--paper);
+}
+.dil-table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 100%;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+.dil-table th,
+.dil-table td {
+  border: 1px solid var(--rule-soft);
+  padding: 0.7rem 0.85rem;
+  text-align: center;
+  vertical-align: middle;
+  background: var(--paper);
+}
+.dil-colhead {
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--teal-deep);
+  font-weight: 700;
+  background: var(--teal-tint) !important;
+  padding: 0.65rem 0.85rem !important;
+}
+.dil-rowhead {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--ink);
+  font-weight: 700;
+  background: var(--paper-2) !important;
+  width: 7rem;
+  text-align: left !important;
+  padding: 0.7rem 0.95rem !important;
+  vertical-align: middle;
+}
+.dil-rowhead .dil-tube-num {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--teal-deep);
+  letter-spacing: 0.01em;
+}
+.dil-rowhead .dil-tube-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--ink-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 0.15rem;
+}
+.dil-cell {
+  font-weight: 500;
+}
+.dil-cell.stepwise {
+  color: var(--ink-soft);
+}
+.dil-cell.total {
+  background: var(--input-bg-focus) !important;
+}
+.dil-row:first-child .dil-cell {
+  background: var(--paper-2) !important;
+  color: var(--ink-muted);
+}
+.dil-row:first-child .dil-cell .dil-value {
+  color: var(--ink-soft);
+}
+.dil-row:first-child .dil-rowhead .dil-tube-num {
+  color: var(--ink-soft);
+}
+
+.dil-times-prefix {
+  color: var(--ink-muted);
+  margin-right: 0.4rem;
+  font-weight: 400;
+}
+.dil-dash {
+  color: var(--ink-muted);
+  font-weight: 400;
+  font-size: 1.05rem;
+}
+.dil-value {
+  display: inline-block;
+  color: var(--teal-deep);
+  font-weight: 700;
+  font-size: 0.98rem;
+}
+.dil-multiplication {
+  display: block;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  margin-bottom: 0.25rem;
+}
+.dil-times {
+  color: var(--rule);
+  margin: 0 0.15rem;
+}
+.dil-equals {
+  color: var(--ink-muted);
+  margin-right: 0.25rem;
+  font-weight: 400;
+}
+
+/* ---------- Derivation list (Solution Step 1) ---------- */
+.deriv-list {
+  list-style: none;
+  margin: 0.85rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.8rem;
+}
+.deriv-step {
+  background: var(--paper);
+  border: 1px solid var(--rule-soft);
+  border-left: 3px solid var(--teal);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 0.9rem;
+}
+.deriv-pair {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+.deriv-label { display: inline-block; }
+.deriv-math {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  color: var(--ink);
+}
+.deriv-frac {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: middle;
+  line-height: 1.2;
+}
+.deriv-frac .num {
+  padding: 0 0.5rem 0.18rem;
+  border-bottom: 1.5px solid var(--ink);
+  white-space: nowrap;
+}
+.deriv-frac .den {
+  padding: 0.18rem 0.5rem 0;
+  white-space: nowrap;
+}
+.deriv-eq {
+  color: var(--ink-muted);
+  font-weight: 500;
+  align-self: center;
+}
+.deriv-result {
+  color: var(--teal-deep);
+  font-weight: 700;
+  font-size: 1.02rem;
+  align-self: center;
+  padding: 0.18rem 0.55rem;
+  background: var(--teal-tint);
+  border: 1px solid var(--teal-soft);
+  border-radius: 4px;
+}
+
+@media (max-width: 540px) {
+  .dil-table { font-size: 0.82rem; }
+  .dil-table th, .dil-table td { padding: 0.55rem 0.5rem; }
+  .dil-colhead { font-size: 0.62rem !important; padding: 0.5rem 0.5rem !important; }
+  .dil-rowhead { width: 5.5rem; padding: 0.55rem 0.6rem !important; }
+  .dil-rowhead .dil-tube-num { font-size: 0.84rem; }
+  .dil-rowhead .dil-tube-tag { font-size: 0.6rem; }
+  .dil-value { font-size: 0.88rem; }
+  .dil-multiplication { font-size: 0.72rem; }
+  .deriv-step { padding: 0.6rem 0.7rem; }
+  .deriv-math { font-size: 0.82rem; gap: 0.35rem; }
+  .deriv-result { font-size: 0.92rem; }
+  .deriv-pair { font-size: 0.7rem; }
+}
+
+/* ---------- Equation reveal ---------- */
+.equation-block {
+  margin: 1rem 0 0.5rem;
+  padding: 1rem 1.1rem;
+  background: var(--teal-tint);
+  border: 1px dashed var(--teal);
+  border-radius: var(--radius-sm);
+  animation: slideIn 0.25s ease-out;
+}
+.equation-block .eq-label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--teal-deep);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+.equation-block .eq-formula {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--ink);
+  line-height: 1.7;
+}
+.equation-block .eq-fraction {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: middle;
+  margin: 0 0.2rem;
+  font-style: normal;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+}
+.equation-block .eq-fraction .num {
+  padding: 0 0.5rem 0.15rem;
+  border-bottom: 1.5px solid var(--ink);
+}
+.equation-block .eq-fraction .den {
+  padding: 0.15rem 0.5rem 0;
+}

@@ -1,0 +1,59 @@
+/* ============================================================
+   Responsive — mobile breakpoints
+   ============================================================ */
+
+@media (max-width: 720px) {
+  .dilution-factor { font-size: 0.7rem; padding: 0.13rem 0.4rem; }
+  .dilution-factor .lbl { font-size: 0.56rem; }
+  .dilution-arrow svg { width: 22px; height: 11px; }
+  .arrow-cell { gap: 0.2rem; }
+  .plate-info { font-size: 0.78rem; }
+  .plate-info strong { font-size: 0.92rem; }
+  .tube-label { font-size: 0.7rem; }
+  .tube-label .tube-name { font-size: 0.78rem; }
+  .tube-cell { padding: 0; }
+  /* Mobile diluent label: drop the pill chrome and use plain stacked text.
+     Fits inside the narrow tube column without horizontal overflow that
+     would push the column wider than its 1/7 share of the row. */
+  .tube-label .diluent {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding: 0;
+    margin-top: 0.25rem;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    white-space: normal;
+    font-size: 0.62rem;
+    line-height: 1.15;
+    max-width: 100%;
+  }
+  .tube-label .diluent .dil-amt {
+    font-weight: 700;
+    font-size: 0.66rem;
+    white-space: nowrap;
+  }
+  .tube-label .diluent .dil-tag {
+    font-size: 0.56rem;
+    margin-top: 0.05rem;
+    letter-spacing: 0.05em;
+  }
+  .toolbar { width: 100%; }
+  .toolbar > * { flex: 1 1 auto; }
+  .toolbar .toggle { flex: 1; justify-content: space-between; }
+}
+
+@media (max-width: 480px) {
+  .site-header { padding-top: 1.5rem; padding-left: 1rem; padding-right: 1rem; }
+  main { padding: 1rem 0.85rem 2rem; }
+  .card { padding: 1.1rem 0.85rem 1.3rem; }
+  h1 { font-size: 2rem; }
+  .answer-input { font-size: 0.95rem; padding-right: 4.5rem; }
+  .dilution-factor { font-size: 0.62rem; padding: 0.1rem 0.3rem; }
+  .dilution-factor .lbl { font-size: 0.5rem; }
+  .dilution-arrow svg { width: 18px; height: 9px; }
+  .tube-label .diluent .dil-amt { font-size: 0.6rem; }
+  .tube-label .diluent .dil-tag { font-size: 0.52rem; }
+}

@@ -1,0 +1,352 @@
+/* ============================================================
+   Themes — color tokens only
+   ============================================================
+   Each theme is selected by [data-theme="..."] on <html>.
+   The light/dark switch is independent and lives on
+   <html data-color-mode="light|dark"> for use by `color-scheme`
+   so browser-native widgets (scrollbars, form controls) match.
+
+   Contrast guarantees:
+     - All themes: ≥ 4.5:1 for normal body text on --paper
+                   ≥ 3:1   for large text and UI components
+     - hc-light / hc-dark: ≥ 7:1 normal text (WCAG AAA)
+*/
+
+/* Default theme so the page paints sensibly even before JS runs. */
+:root,
+:root[data-theme="lab-paper"] {
+  --paper:        #f4ece0;
+  --paper-2:      #ece2d2;
+  --paper-3:      #e2d6c1;
+  --paper-grid-line: rgba(31, 95, 91, 0.05);
+  --overlay-bg:   rgba(255, 251, 244, 0.7);
+
+  --ink:          #1a2026;
+  --ink-soft:     #3b4651;
+  --ink-muted:    #5a6470;
+  --rule:         #c8b89c;
+  --rule-soft:    #d8caaf;
+
+  --teal:         #1f5f5b;
+  --teal-deep:    #14403d;
+  --teal-soft:    #d4e3e1;
+  --teal-tint:    #e8f0ee;
+
+  --oxblood:      #8b2331;
+  --oxblood-soft: #f3dadd;
+  --moss:         #4a6b3a;
+  --moss-soft:    #dde6d3;
+  --amber:        #b97a16;
+  --amber-soft:   #f3e3c5;
+
+  --focus:        #d4a017;
+
+  --feedback-success-text: #2f4724;
+  --feedback-error-text:   #6a1a26;
+  --feedback-warning-text: #6e4810;
+  --input-bg:              var(--paper);
+  --input-bg-focus:        #fffaf0;
+
+  /* SVG — tube glass + shadows */
+  --tube-glass-fill:        rgba(255, 255, 255, 0.55);
+  --tube-glass-stroke:      #3b4651;
+  --tube-glass-highlight:   rgba(255, 255, 255, 0.7);
+  --tube-shadow:            rgba(0, 0, 0, 0.08);
+  --tube-rim-shadow:        rgba(0, 0, 0, 0.06);
+
+  /* SVG — tube liquid progression (red original → pale rose) */
+  --tube-color-1: rgb(139, 35, 49);
+  --tube-color-2: rgb(186, 85, 99);
+  --tube-color-3: rgb(216, 144, 156);
+  --tube-color-4: rgb(236, 196, 204);
+
+  /* SVG — petri dish */
+  --colony-fill:      #f7f0e0;
+  --colony-stroke:    #a89668;
+  --agar-grad-1:      #e8d9b3;
+  --agar-grad-2:      #c4ae7c;
+  --plate-wall-fill:  rgba(255, 255, 255, 0.4);
+  --plate-wall-stroke:#3b4651;
+  --agar-shine:       rgba(255, 255, 255, 0.45);
+  --dish-shadow:      rgba(0, 0, 0, 0.15);
+}
+
+/* ----- Light: Clean Slate ----- */
+:root[data-theme="clean-slate"] {
+  --paper:        #fafafc;
+  --paper-2:      #f0f1f5;
+  --paper-3:      #e3e6ed;
+  --paper-grid-line: rgba(30, 111, 140, 0.05);
+  --overlay-bg:   rgba(255, 255, 255, 0.7);
+
+  --ink:          #1a1f2e;
+  --ink-soft:     #3a4257;
+  --ink-muted:    #54607a;
+  --rule:         #c9cfd9;
+  --rule-soft:    #dde1ea;
+
+  --teal:         #1e6f8c;
+  --teal-deep:    #0f4a63;
+  --teal-soft:    #d6e8ef;
+  --teal-tint:    #ecf3f7;
+
+  --oxblood:      #a02236;
+  --oxblood-soft: #f4dde1;
+  --moss:         #2f5d3a;
+  --moss-soft:    #d8e5d4;
+  --amber:        #a16b13;
+  --amber-soft:   #f0dfb8;
+
+  --focus:        #c08000;
+
+  --feedback-success-text: #21442a;
+  --feedback-error-text:   #6f1925;
+  --feedback-warning-text: #6b430f;
+  --input-bg:              #ffffff;
+  --input-bg-focus:        #f9fcff;
+
+  --tube-glass-fill:        rgba(255, 255, 255, 0.7);
+  --tube-glass-stroke:      #3a4257;
+  --tube-glass-highlight:   rgba(255, 255, 255, 0.8);
+  --tube-shadow:            rgba(0, 0, 0, 0.08);
+  --tube-rim-shadow:        rgba(0, 0, 0, 0.06);
+
+  --tube-color-1: rgb(160, 34, 54);
+  --tube-color-2: rgb(192, 90, 104);
+  --tube-color-3: rgb(220, 148, 158);
+  --tube-color-4: rgb(240, 200, 208);
+
+  --colony-fill:      #f5efe0;
+  --colony-stroke:    #a09376;
+  --agar-grad-1:      #e6d9b8;
+  --agar-grad-2:      #b8a684;
+  --plate-wall-fill:  rgba(255, 255, 255, 0.55);
+  --plate-wall-stroke:#3a4257;
+  --agar-shine:       rgba(255, 255, 255, 0.5);
+  --dish-shadow:      rgba(0, 0, 0, 0.15);
+}
+
+/* ----- Light: High Contrast (AAA) ----- */
+:root[data-theme="hc-light"] {
+  --paper:        #ffffff;
+  --paper-2:      #f5f5f5;
+  --paper-3:      #e0e0e0;
+  --paper-grid-line: rgba(0, 0, 0, 0.04);
+  --overlay-bg:   rgba(255, 255, 255, 0.9);
+
+  --ink:          #000000;
+  --ink-soft:     #1a1a1a;
+  --ink-muted:    #3a3a3a;
+  --rule:         #707070;
+  --rule-soft:    #909090;
+
+  --teal:         #00474a;
+  --teal-deep:    #002a2c;
+  --teal-soft:    #d0e6e7;
+  --teal-tint:    #e8f3f4;
+
+  --oxblood:      #8a0010;
+  --oxblood-soft: #fbdcde;
+  --moss:         #1f4d20;
+  --moss-soft:    #d5e7d6;
+  --amber:        #6a4302;
+  --amber-soft:   #f5e5c2;
+
+  --focus:        #a06800;
+
+  --feedback-success-text: #0d3210;
+  --feedback-error-text:   #560008;
+  --feedback-warning-text: #3a2400;
+  --input-bg:              #ffffff;
+  --input-bg-focus:        #ffffff;
+
+  --tube-glass-fill:        rgba(255, 255, 255, 0.7);
+  --tube-glass-stroke:      #000000;
+  --tube-glass-highlight:   rgba(255, 255, 255, 0.85);
+  --tube-shadow:            rgba(0, 0, 0, 0.12);
+  --tube-rim-shadow:        rgba(0, 0, 0, 0.08);
+
+  --tube-color-1: rgb(120, 10, 22);
+  --tube-color-2: rgb(155, 60, 75);
+  --tube-color-3: rgb(185, 115, 130);
+  --tube-color-4: rgb(210, 170, 180);
+
+  --colony-fill:      #ffffff;
+  --colony-stroke:    #000000;
+  --agar-grad-1:      #d8d8d8;
+  --agar-grad-2:      #999999;
+  --plate-wall-fill:  rgba(255, 255, 255, 0.6);
+  --plate-wall-stroke:#000000;
+  --agar-shine:       rgba(255, 255, 255, 0.55);
+  --dish-shadow:      rgba(0, 0, 0, 0.25);
+}
+
+/* ----- Dark: Lab Slate ----- */
+:root[data-theme="lab-slate"] {
+  --paper:        #1d2530;
+  --paper-2:      #232d3a;
+  --paper-3:      #2c3744;
+  --paper-grid-line: rgba(92, 191, 182, 0.04);
+  --overlay-bg:   rgba(29, 37, 48, 0.7);
+
+  --ink:          #f0e7d6;
+  --ink-soft:     #c4b69a;
+  --ink-muted:    #a89a82;
+  --rule:         #3d4856;
+  --rule-soft:    #2c3744;
+
+  --teal:         #5cbfb6;
+  --teal-deep:    #84d4cc;
+  --teal-soft:    #234744;
+  --teal-tint:    #1c3835;
+
+  --oxblood:      #e08291;
+  --oxblood-soft: #3a1f24;
+  --moss:         #8cb275;
+  --moss-soft:    #233019;
+  --amber:        #e6b85c;
+  --amber-soft:   #3a2c14;
+
+  --focus:        #f0c044;
+
+  --feedback-success-text: #c5e0a8;
+  --feedback-error-text:   #f2b2bf;
+  --feedback-warning-text: #f3d287;
+  --input-bg:              var(--paper-2);
+  --input-bg-focus:        #2a3340;
+
+  --tube-glass-fill:        rgba(80, 100, 120, 0.4);
+  --tube-glass-stroke:      #6a7a8d;
+  --tube-glass-highlight:   rgba(200, 220, 240, 0.25);
+  --tube-shadow:            rgba(0, 0, 0, 0.4);
+  --tube-rim-shadow:        rgba(0, 0, 0, 0.3);
+
+  --tube-color-1: rgb(220, 100, 115);
+  --tube-color-2: rgb(232, 140, 155);
+  --tube-color-3: rgb(238, 175, 188);
+  --tube-color-4: rgb(244, 210, 220);
+
+  --colony-fill:      #f3e8d0;
+  --colony-stroke:    #8a7c5e;
+  --agar-grad-1:      #6a5d3e;
+  --agar-grad-2:      #4a3f24;
+  --plate-wall-fill:  rgba(80, 100, 120, 0.3);
+  --plate-wall-stroke:#6a7a8d;
+  --agar-shine:       rgba(255, 240, 200, 0.15);
+  --dish-shadow:      rgba(0, 0, 0, 0.5);
+}
+
+/* ----- Dark: Midnight ----- */
+:root[data-theme="midnight"] {
+  --paper:        #0e1626;
+  --paper-2:      #15203a;
+  --paper-3:      #1c294a;
+  --paper-grid-line: rgba(74, 224, 208, 0.04);
+  --overlay-bg:   rgba(14, 22, 38, 0.75);
+
+  --ink:          #d8e3f7;
+  --ink-soft:     #a0b0d0;
+  --ink-muted:    #8090a8;
+  --rule:         #2a3b5c;
+  --rule-soft:    #1f2e4a;
+
+  --teal:         #4ae0d0;
+  --teal-deep:    #80f0e2;
+  --teal-soft:    #154844;
+  --teal-tint:    #0e2e2c;
+
+  --oxblood:      #f06b80;
+  --oxblood-soft: #3a1620;
+  --moss:         #80dc7a;
+  --moss-soft:    #163218;
+  --amber:        #f4c050;
+  --amber-soft:   #3a2810;
+
+  --focus:        #ffd95c;
+
+  --feedback-success-text: #c0eebc;
+  --feedback-error-text:   #f8a8b5;
+  --feedback-warning-text: #f6d883;
+  --input-bg:              var(--paper-2);
+  --input-bg-focus:        #1a2640;
+
+  --tube-glass-fill:        rgba(60, 100, 160, 0.3);
+  --tube-glass-stroke:      #6a85b5;
+  --tube-glass-highlight:   rgba(180, 210, 255, 0.25);
+  --tube-shadow:            rgba(0, 0, 0, 0.5);
+  --tube-rim-shadow:        rgba(0, 0, 0, 0.4);
+
+  --tube-color-1: rgb(240, 107, 128);
+  --tube-color-2: rgb(245, 145, 160);
+  --tube-color-3: rgb(248, 180, 192);
+  --tube-color-4: rgb(250, 210, 220);
+
+  --colony-fill:      #e8f0ff;
+  --colony-stroke:    #7585a0;
+  --agar-grad-1:      #4a5878;
+  --agar-grad-2:      #2a3550;
+  --plate-wall-fill:  rgba(60, 100, 160, 0.25);
+  --plate-wall-stroke:#6a85b5;
+  --agar-shine:       rgba(180, 200, 240, 0.2);
+  --dish-shadow:      rgba(0, 0, 0, 0.6);
+}
+
+/* ----- Dark: High Contrast (AAA) ----- */
+:root[data-theme="hc-dark"] {
+  --paper:        #000000;
+  --paper-2:      #0a0a0a;
+  --paper-3:      #1a1a1a;
+  --paper-grid-line: rgba(94, 224, 208, 0.06);
+  --overlay-bg:   rgba(0, 0, 0, 0.85);
+
+  --ink:          #ffffff;
+  --ink-soft:     #f0f0f0;
+  --ink-muted:    #d0d0d0;
+  --rule:         #b0b0b0;
+  --rule-soft:    #707070;
+
+  --teal:         #5ee0d0;
+  --teal-deep:    #a0f0e0;
+  --teal-soft:    #1a4040;
+  --teal-tint:    #0a2828;
+
+  --oxblood:      #ff8090;
+  --oxblood-soft: #400a14;
+  --moss:         #80e070;
+  --moss-soft:    #0a2a0a;
+  --amber:        #ffd060;
+  --amber-soft:   #3a2810;
+
+  --focus:        #ffd000;
+
+  --feedback-success-text: #c0ffb0;
+  --feedback-error-text:   #ffb8c0;
+  --feedback-warning-text: #ffe080;
+  --input-bg:              #0a0a0a;
+  --input-bg-focus:        #1a1a1a;
+
+  --tube-glass-fill:        rgba(100, 100, 100, 0.3);
+  --tube-glass-stroke:      #ffffff;
+  --tube-glass-highlight:   rgba(255, 255, 255, 0.4);
+  --tube-shadow:            rgba(255, 255, 255, 0.1);
+  --tube-rim-shadow:        rgba(0, 0, 0, 0.6);
+
+  --tube-color-1: rgb(255, 180, 190);
+  --tube-color-2: rgb(255, 200, 210);
+  --tube-color-3: rgb(255, 220, 225);
+  --tube-color-4: rgb(255, 235, 240);
+
+  --colony-fill:      #ffffff;
+  --colony-stroke:    #000000;
+  --agar-grad-1:      #404040;
+  --agar-grad-2:      #202020;
+  --plate-wall-fill:  rgba(100, 100, 100, 0.25);
+  --plate-wall-stroke:#ffffff;
+  --agar-shine:       rgba(255, 255, 255, 0.25);
+  --dish-shadow:      rgba(255, 255, 255, 0.15);
+}
+
+/* Let the browser style native widgets (scrollbars, native form controls)
+   to match the resolved mode. data-color-mode is set by js/theme.js. */
+:root[data-color-mode="light"] { color-scheme: light; }
+:root[data-color-mode="dark"]  { color-scheme: dark; }

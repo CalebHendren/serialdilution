@@ -1,0 +1,165 @@
+/* ============================================================
+   Calculator — floats top-right on desktop, in-flow on mobile
+   ============================================================ */
+
+#calculatorContainer {
+  /* Default container; positioning happens in .calculator below. */
+}
+.calculator {
+  max-width: 300px;
+  padding: 0.85rem;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
+  animation: slideIn 0.25s ease-out;
+}
+/* Desktop: anchor the calculator to the TOP-RIGHT of the viewport so it
+   stays visible at the same screen position as the user scrolls down.
+   When the calc is shown we add a `calc-shown` class to <body> giving it
+   extra right padding, so main and the header center naturally in the
+   remaining viewport space. */
+@media (min-width: 721px) {
+  #calculatorContainer:not([hidden]) {
+    position: fixed;
+    right: 2rem;
+    top: 5rem;
+    z-index: 100;
+    width: 240px;
+    max-width: 240px;
+  }
+  .calculator {
+    margin: 0;
+    max-width: 240px;
+    box-shadow: var(--shadow-2);
+  }
+  body.calc-shown {
+    padding-right: calc(240px + 3rem);
+  }
+}
+/* Mobile: in-flow, with a top margin to separate from the buttons above. */
+@media (max-width: 720px) {
+  .calculator {
+    margin: 0.85rem auto 0.5rem;
+    max-width: 320px;
+  }
+}
+
+.calc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.calc-title {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  font-weight: 600;
+}
+.calc-close {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--ink-muted);
+  font-size: 1.1rem;
+  width: var(--touch-target);
+  height: var(--touch-target);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.calc-close:hover {
+  background: var(--paper-2);
+  border-color: var(--rule);
+  color: var(--ink);
+}
+.calc-close:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 1px;
+}
+.calc-display {
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--paper-2);
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 0.85rem;
+  margin-bottom: 0.6rem;
+  text-align: right;
+  min-height: 2.6rem;
+  overflow-x: auto;
+  white-space: nowrap;
+  direction: ltr;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.calc-history {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  min-height: 1.1rem;
+  margin-bottom: 0.15rem;
+  text-align: right;
+  letter-spacing: 0.02em;
+}
+.calc-keys {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.4rem;
+}
+.calc-key {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.7rem 0;
+  background: var(--paper-2);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.1s ease, transform 0.04s ease;
+  min-height: var(--touch-target);
+  min-width: var(--touch-target);
+  user-select: none;
+}
+.calc-key:hover { background: var(--paper-3); }
+.calc-key:active { transform: translateY(1px); }
+.calc-key:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 1px;
+}
+.calc-key.op {
+  background: var(--teal-tint);
+  color: var(--teal-deep);
+  border-color: var(--teal-soft);
+}
+.calc-key.op:hover { background: var(--teal-soft); }
+.calc-key.op.active {
+  background: var(--teal);
+  color: var(--paper);
+  border-color: var(--teal);
+}
+.calc-key.eq {
+  background: var(--teal);
+  color: var(--paper);
+  border-color: var(--teal);
+}
+.calc-key.eq:hover { background: var(--teal-deep); border-color: var(--teal-deep); }
+.calc-key.fn {
+  background: var(--paper);
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+.calc-key.zero {
+  grid-column: span 2;
+}
