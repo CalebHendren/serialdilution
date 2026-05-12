@@ -1,0 +1,66 @@
+/* ============================================================
+   Plates row — agar plates beneath the dilution tubes
+   ============================================================ */
+
+.plates-section {
+  margin-bottom: 2rem;
+}
+.plates-row {
+  display: grid;
+  /* Mirror tubes-row exactly: 7 equal columns with minmax for stability. */
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0;
+  align-items: start;
+  padding: 0.5rem 0 0.5rem;
+}
+
+/* Empty cell under tube 1 — preserves column alignment with tubes */
+.plates-row > .plate-cell.spacer { visibility: hidden; }
+/* Empty cells under arrow columns — same width as the arrow content */
+.plates-row > .arrow-spacer { padding: 0; }
+
+.plate-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: center;
+  width: 100%;
+  max-width: 130px;
+}
+
+.plate-svg {
+  width: 100%;
+  max-width: 130px;
+  height: auto;
+  display: block;
+}
+
+.plate-info {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  line-height: 1.35;
+}
+.plate-info strong {
+  color: var(--ink);
+  font-size: 1rem;
+  display: block;
+  margin-bottom: 0.1rem;
+}
+.plate-info .vol {
+  color: var(--teal-deep);
+}
+
+/* Connecting line from tube to plate (decorative) */
+.tube-to-plate {
+  position: absolute;
+  bottom: -1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 1rem;
+  background: var(--rule);
+  pointer-events: none;
+}

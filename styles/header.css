@@ -1,0 +1,211 @@
+/* ============================================================
+   Header — site header, title, toolbar (sci toggle, theme controls)
+   ============================================================ */
+
+.site-header {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 1rem;
+}
+.header-inner {
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  position: relative;
+}
+.header-inner::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -7px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--ink);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin: 0;
+  font-weight: 600;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--ink);
+}
+h1 em {
+  font-style: italic;
+  color: var(--teal);
+}
+
+.subtitle {
+  max-width: 60ch;
+  margin: 0.4rem 0 0;
+  color: var(--ink-soft);
+  font-size: 1.02rem;
+}
+
+.course-tag {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-muted);
+  margin: 0.25rem 0 0;
+}
+
+/* Top right toolbar (sci notation toggle, theme controls, new problem) */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1rem;
+  align-items: center;
+}
+
+.toolbar-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Toggle (sci notation) */
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.45rem 0.85rem;
+  background: var(--paper);
+  border: 2px solid var(--rule);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  font-weight: 500;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+  user-select: none;
+  min-height: var(--touch-target);
+}
+.toggle:hover { border-color: var(--ink-soft); }
+.toggle input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.toggle-track {
+  width: 32px;
+  height: 18px;
+  background: var(--paper-3);
+  border-radius: 999px;
+  position: relative;
+  transition: background 0.15s ease;
+  flex-shrink: 0;
+}
+.toggle-track::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  background: var(--paper);
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: transform 0.15s ease;
+}
+.toggle input:checked + .toggle-track {
+  background: var(--teal);
+}
+.toggle input:checked + .toggle-track::after {
+  transform: translateX(14px);
+}
+.toggle input:focus-visible + .toggle-track {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+.toggle.on { color: var(--teal-deep); border-color: var(--teal); }
+
+/* ---------- Theme controls ---------- */
+.theme-select-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.6rem 0.35rem 0.85rem;
+  background: var(--paper);
+  border: 2px solid var(--rule);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  min-height: var(--touch-target);
+}
+.theme-select-wrap label {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.theme-select {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  padding: 0.25rem 0.25rem 0.25rem 0;
+  cursor: pointer;
+}
+.theme-select:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Light/dark mode toggle button */
+.mode-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.85rem;
+  background: var(--paper);
+  color: var(--ink);
+  border: 2px solid var(--rule);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 600;
+  min-height: var(--touch-target);
+  min-width: var(--touch-target);
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.mode-toggle:hover {
+  border-color: var(--ink-soft);
+  background: var(--paper-2);
+}
+.mode-toggle svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+/* Show the icon matching the *current* resolved mode. */
+:root[data-color-mode="light"] .mode-toggle .icon-dark { display: none; }
+:root[data-color-mode="dark"]  .mode-toggle .icon-light { display: none; }
+:root[data-color-mode="light"] .mode-toggle .label-text::before { content: "Dark"; }
+:root[data-color-mode="dark"]  .mode-toggle .label-text::before { content: "Light"; }

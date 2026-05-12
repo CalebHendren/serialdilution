@@ -1,0 +1,163 @@
+/* ============================================================
+   Tubes row — dilution series tubes + transfer arrows
+   ============================================================ */
+
+.tubes-section {
+  margin-bottom: 0.25rem;
+}
+.tubes-row {
+  display: grid;
+  /* 7 EQUAL columns: tube, arrow, tube, arrow, tube, arrow, tube.
+     minmax(0, 1fr) keeps columns truly equal — without the `0` minimum,
+     a wide piece of content (like a long diluent pill) would expand its
+     column past the others, throwing off centering. */
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0;
+  align-items: start;
+  position: relative;
+  padding: 1.5rem 0 0.5rem;
+}
+
+.tube-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  position: relative;
+  width: 100%;
+  max-width: 130px;
+  justify-self: center;
+  padding: 0;
+}
+
+/* Arrow cell — uses an internal aspect-ratio aligner so the arrow lands
+   precisely at the vertical middle of the tube body, not the row-height
+   middle (which can shift with diluent pill heights below). */
+.arrow-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  pointer-events: none;
+  min-width: 0;
+}
+
+/* This invisible aligner has the SAME aspect ratio and width as the
+   tube SVG, so its vertical center is exactly the tube body's vertical
+   center. The arrow + badge sit absolutely centered inside it. */
+.arrow-aligner {
+  width: 100%;
+  max-width: 110px;            /* same as .tube-svg */
+  aspect-ratio: 60 / 150;      /* same as .tube-svg viewBox */
+  position: relative;
+}
+.arrow-aligner > .dilution-arrow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.tube-label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  text-align: center;
+  font-weight: 600;
+  /* min-height (not fixed height) so the label can grow when the diluent
+     badge stacks onto multiple lines on mobile; on desktop the pill is
+     one line and the min provides a consistent baseline below the tube. */
+  min-height: 3.4em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.05rem;
+  width: 100%;
+}
+.tube-label .tube-name {
+  display: block;
+  color: var(--teal-deep);
+  font-size: 0.86rem;
+  margin-bottom: 0.05rem;
+}
+.tube-label .tube-sub {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--ink-muted);
+  font-weight: 500;
+}
+/* Diluent pill sits below the tube label. Whole pill stays on one line —
+   allowed to overflow the cell visually if it's wider than 130px. */
+.tube-label .diluent {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  padding: 0.18rem 0.55rem;
+  margin-top: 0.2rem;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  color: var(--ink-soft);
+  font-weight: 600;
+  font-size: 0.74rem;
+  white-space: nowrap;
+  max-width: none;     /* allow overflow past the 130px cell width */
+}
+.tube-label .diluent .dil-amt {
+  color: var(--teal-deep);
+}
+.tube-label .diluent .dil-tag {
+  color: var(--ink-muted);
+  font-weight: 500;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* SVG tube */
+.tube-svg {
+  width: 100%;
+  max-width: 110px;
+  height: auto;
+  display: block;
+}
+
+/* The arrow itself + the transfer-volume badge stacked under it */
+.dilution-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+.dilution-arrow svg {
+  width: 28px;
+  height: 14px;
+  color: var(--teal);
+  flex-shrink: 0;
+}
+.dilution-factor {
+  background: var(--paper);
+  border: 1.5px solid var(--teal);
+  color: var(--teal-deep);
+  padding: 0.18rem 0.55rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.78rem;
+  white-space: nowrap;
+  box-shadow: var(--shadow-1);
+  line-height: 1.2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.05rem;
+}
+.dilution-factor .lbl {
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  font-weight: 500;
+}
