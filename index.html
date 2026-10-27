@@ -17,20 +17,20 @@
       try {
         var theme = localStorage.getItem("sdp_theme_v1");
         var mode  = localStorage.getItem("sdp_color_mode_v1");
-        var validThemes = ["lab-paper","clean-slate","hc-light","lab-slate","midnight","hc-dark"];
+        var validThemes = ["light-default","clean-slate","hc-light","lab-slate","midnight","hc-dark"];
         if (validThemes.indexOf(theme) === -1) theme = null;
         if (mode !== "light" && mode !== "dark") mode = null;
         if (!theme && !mode) {
           mode = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-          theme = mode === "dark" ? "lab-slate" : "lab-paper";
+          theme = mode === "dark" ? "lab-slate" : "light-default";
         } else if (theme && !mode) {
           mode = (theme === "lab-slate" || theme === "midnight" || theme === "hc-dark") ? "dark" : "light";
         } else if (!theme) {
-          theme = mode === "dark" ? "lab-slate" : "lab-paper";
+          theme = mode === "dark" ? "lab-slate" : "light-default";
         }
         document.documentElement.setAttribute("data-theme", theme);
         document.documentElement.setAttribute("data-color-mode", mode);
-      } catch (e) { /* ignore — CSS defaults paint lab-paper / light */ }
+      } catch (e) { /* ignore — CSS defaults paint light-default / light */ }
     })();
   </script>
 

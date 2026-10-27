@@ -4,12 +4,25 @@
 
 .site-header {
   position: relative;
+  isolation: isolate;
   max-width: 1100px;
   margin: 0 auto;
   padding: 2.5rem 1.5rem 1rem;
 }
+/* Optional full-bleed header band (themes set --header-bg / --header-border). */
+.site-header::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: -100vmax;
+  right: -100vmax;
+  background: var(--header-bg, transparent);
+  border-bottom: var(--header-border, 0);
+}
 .header-inner {
-  border-bottom: 2px solid var(--ink);
+  border-bottom: 2px solid var(--header-rule, var(--ink));
   padding-bottom: 1.25rem;
   display: flex;
   flex-direction: column;
@@ -24,7 +37,7 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: var(--ink);
+  background: var(--header-rule, var(--ink));
 }
 
 .eyebrow {
@@ -32,7 +45,7 @@
   font-size: 0.75rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--teal);
+  color: var(--header-eyebrow, var(--teal));
   margin: 0;
   font-weight: 600;
 }
@@ -44,17 +57,17 @@ h1 {
   line-height: 1.05;
   letter-spacing: -0.01em;
   margin: 0;
-  color: var(--ink);
+  color: var(--header-title, var(--ink));
 }
 h1 em {
   font-style: italic;
-  color: var(--teal);
+  color: var(--header-em, var(--teal));
 }
 
 .subtitle {
   max-width: 60ch;
   margin: 0.4rem 0 0;
-  color: var(--ink-soft);
+  color: var(--header-sub, var(--ink-soft));
   font-size: 1.02rem;
 }
 
@@ -62,7 +75,7 @@ h1 em {
   font-family: var(--font-mono);
   font-size: 0.78rem;
   letter-spacing: 0.04em;
-  color: var(--ink-muted);
+  color: var(--header-sub, var(--ink-muted));
   margin: 0.25rem 0 0;
 }
 

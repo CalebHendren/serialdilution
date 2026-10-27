@@ -9,7 +9,7 @@
  * you don't care about.
  *
  * The full set of theme keys is:
- *   Light  →  "lab-paper", "clean-slate", "hc-light"
+ *   Light  →  "light-default", "clean-slate", "hc-light"
  *   Dark   →  "lab-slate", "midnight",    "hc-dark"
  * "hc-light" and "hc-dark" meet WCAG 2.1 AAA contrast.
  */
@@ -93,8 +93,8 @@ export default {
   // Appearance defaults
   // ============================================================
   // First-load theme if the student has not picked one yet.
-  // One of: lab-paper, clean-slate, hc-light, lab-slate, midnight, hc-dark
-  defaultTheme: "lab-paper",
+  // One of: light-default, clean-slate, hc-light, lab-slate, midnight, hc-dark
+  defaultTheme: "light-default",
 
   // First-load color mode: "light", "dark", or "system".
   // "system" follows the student's OS preference.

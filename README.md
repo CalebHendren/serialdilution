@@ -48,17 +48,17 @@ Six themes ship out of the box. All meet WCAG 2.1 AA contrast; the two High Cont
 
 | Key | Mode | Notes |
 |---|---|---|
-| `lab-paper` | light | Warm cream, deep teal, oxblood — the original lab-notebook aesthetic (default). |
+| `light-default` | light | Chattanooga State light theme (navy, royal blue, orange), shared with MicroGrade. Shown as "Light" in the picker (default). |
 | `clean-slate` | light | Clinical white background, slate text, blue-teal accent. |
 | `hc-light` | light | Near-white background, near-black text, deep navy/burgundy. AAA. |
-| `lab-slate` | dark | Warm dark blue-gray paper, cream text, muted teal/coral. Paired with `lab-paper`. |
+| `lab-slate` | dark | Warm dark blue-gray paper, cream text, muted teal/coral. Paired with `light-default`. |
 | `midnight` | dark | Deep navy, soft sky text, electric teal/amber. Paired with `clean-slate`. |
 | `hc-dark` | dark | Pure black background, pure white text, bright brass focus. AAA. |
 
 Two controls live in the page toolbar:
 
 - **Theme** — a native `<select>` listing all six themes, grouped Light / Dark.
-- **Light/Dark toggle** — flips to the paired theme (lab-paper ↔ lab-slate, clean-slate ↔ midnight, hc-light ↔ hc-dark).
+- **Light/Dark toggle** — flips to the paired theme (light-default ↔ lab-slate, clean-slate ↔ midnight, hc-light ↔ hc-dark).
 
 Choices persist via `localStorage`. With no saved choice, the page follows the OS `prefers-color-scheme` setting and continues listening for mid-session changes until the student picks a theme manually.
 

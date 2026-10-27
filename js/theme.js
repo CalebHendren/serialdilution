@@ -2,7 +2,7 @@
  * Theme + color-mode controller.
  *
  * Two concepts:
- *   - `theme`      → one of the six named themes (e.g. "lab-paper").
+ *   - `theme`      → one of the six named themes (e.g. "light-default").
  *                    Drives [data-theme] on <html> and the look of the page.
  *   - `colorMode`  → "light" | "dark" | "system". When "system" we resolve
  *                    via prefers-color-scheme and continue listening for
@@ -11,7 +11,7 @@
  *                    (scrollbars, native form controls) match.
  *
  * Themes are paired so the light/dark toggle has a sensible partner:
- *   lab-paper   ↔ lab-slate
+ *   light-default ↔ lab-slate
  *   clean-slate ↔ midnight
  *   hc-light    ↔ hc-dark
  */
@@ -20,21 +20,21 @@ import { config } from "./config.js";
 import { KEYS, load, save } from "./storage.js";
 
 export const THEMES = [
-  { key: "lab-paper",   label: "Lab Paper",     mode: "light" },
-  { key: "clean-slate", label: "Clean Slate",   mode: "light" },
-  { key: "hc-light",    label: "High Contrast (AAA)", mode: "light" },
-  { key: "lab-slate",   label: "Lab Slate",     mode: "dark"  },
-  { key: "midnight",    label: "Midnight",      mode: "dark"  },
-  { key: "hc-dark",     label: "High Contrast (AAA)", mode: "dark"  },
+  { key: "light-default", label: "Light",         mode: "light" },
+  { key: "clean-slate",   label: "Clean Slate",   mode: "light" },
+  { key: "hc-light",      label: "High Contrast (AAA)", mode: "light" },
+  { key: "lab-slate",     label: "Lab Slate",     mode: "dark"  },
+  { key: "midnight",      label: "Midnight",      mode: "dark"  },
+  { key: "hc-dark",       label: "High Contrast (AAA)", mode: "dark"  },
 ];
 
 const PAIRS = {
-  "lab-paper":   "lab-slate",
-  "lab-slate":   "lab-paper",
-  "clean-slate": "midnight",
-  "midnight":    "clean-slate",
-  "hc-light":    "hc-dark",
-  "hc-dark":     "hc-light",
+  "light-default": "lab-slate",
+  "lab-slate":     "light-default",
+  "clean-slate":   "midnight",
+  "midnight":      "clean-slate",
+  "hc-light":      "hc-dark",
+  "hc-dark":       "hc-light",
 };
 
 const THEME_KEYS = new Set(THEMES.map(t => t.key));
@@ -53,7 +53,7 @@ function defaultThemeForMode(mode) {
   if (config.defaultTheme && modeOf(config.defaultTheme) === mode) {
     return config.defaultTheme;
   }
-  return mode === "dark" ? "lab-slate" : "lab-paper";
+  return mode === "dark" ? "lab-slate" : "light-default";
 }
 
 /**
