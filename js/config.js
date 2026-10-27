@@ -52,7 +52,7 @@ const DEFAULTS = {
     },
   },
 
-  defaultTheme: "lab-paper",
+  defaultTheme: "light-default",
   defaultColorMode: "system",
   showCalculatorOnDesktop: true,
 };

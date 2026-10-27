@@ -8,6 +8,7 @@ html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
+  overflow-x: hidden;   /* full-bleed header band must not add a horizontal scrollbar */
   min-height: 100vh;
   font-family: var(--font-body);
   font-size: 16px;
@@ -16,9 +17,9 @@ body {
   background: var(--paper);
   /* Subtle paper grain via layered radial gradients + a fine pinstripe grid */
   background-image:
-    radial-gradient(circle at 12% 8%, rgba(31, 95, 91, 0.06), transparent 35%),
-    radial-gradient(circle at 92% 4%, rgba(185, 122, 22, 0.05), transparent 30%),
-    radial-gradient(circle at 50% 95%, rgba(139, 35, 49, 0.04), transparent 40%),
+    radial-gradient(circle at 12% 8%, var(--glow-1, rgba(31, 95, 91, 0.06)), transparent 35%),
+    radial-gradient(circle at 92% 4%, var(--glow-2, rgba(185, 122, 22, 0.05)), transparent 30%),
+    radial-gradient(circle at 50% 95%, var(--glow-3, rgba(139, 35, 49, 0.04)), transparent 40%),
     repeating-linear-gradient(
       0deg,
       transparent 0,

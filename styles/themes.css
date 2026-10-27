@@ -12,63 +12,83 @@
      - hc-light / hc-dark: ≥ 7:1 normal text (WCAG AAA)
 */
 
-/* Default theme so the page paints sensibly even before JS runs. */
+/* Default theme so the page paints sensibly even before JS runs.
+   "light-default" is the Chattanooga State light theme, shared with MicroGrade:
+   navy #10305F, royal blue #0B57BE, orange #FE5000. Orange fails AA as small
+   text, so text-sized uses are the darker #C63F00. The --header-* variables
+   are optional; themes that leave them unset keep the plain ruled header. */
 :root,
-:root[data-theme="lab-paper"] {
-  --paper:        #f4ece0;
-  --paper-2:      #ece2d2;
-  --paper-3:      #e2d6c1;
-  --paper-grid-line: rgba(31, 95, 91, 0.05);
-  --overlay-bg:   rgba(255, 251, 244, 0.7);
+:root[data-theme="light-default"] {
+  --paper:        #f4f6f9;
+  --paper-2:      #edf1f6;
+  --paper-3:      #e2e8f0;
+  --paper-grid-line: rgba(16, 48, 95, 0.04);
+  --overlay-bg:   rgba(255, 255, 255, 0.7);
 
-  --ink:          #1a2026;
-  --ink-soft:     #3b4651;
-  --ink-muted:    #5a6470;
-  --rule:         #c8b89c;
-  --rule-soft:    #d8caaf;
+  --ink:          #14181f;
+  --ink-soft:     #2f3a48;
+  --ink-muted:    #4a5563;
+  --rule:         #c7d0dc;
+  --rule-soft:    #dbe2eb;
 
-  --teal:         #1f5f5b;
-  --teal-deep:    #14403d;
-  --teal-soft:    #d4e3e1;
-  --teal-tint:    #e8f0ee;
+  --teal:         #0b57be;
+  --teal-deep:    #10305f;
+  --teal-soft:    #d6e2f5;
+  --teal-tint:    #e8eff9;
 
-  --oxblood:      #8b2331;
-  --oxblood-soft: #f3dadd;
-  --moss:         #4a6b3a;
-  --moss-soft:    #dde6d3;
-  --amber:        #b97a16;
-  --amber-soft:   #f3e3c5;
+  --oxblood:      #a4262c;
+  --oxblood-soft: #f6dcde;
+  --moss:         #117a3d;
+  --moss-soft:    #d8ecde;
+  --amber:        #c63f00;
+  --amber-soft:   #fde4d8;
 
-  --focus:        #d4a017;
+  --focus:        #c63f00;
 
-  --feedback-success-text: #2f4724;
-  --feedback-error-text:   #6a1a26;
-  --feedback-warning-text: #6e4810;
-  --input-bg:              var(--paper);
-  --input-bg-focus:        #fffaf0;
+  --feedback-success-text: #0d5a2c;
+  --feedback-error-text:   #7f1d22;
+  --feedback-warning-text: #9a3000;
+  --input-bg:              #ffffff;
+  --input-bg-focus:        #f4f8ff;
 
   /* SVG — tube glass + shadows */
-  --tube-glass-fill:        rgba(255, 255, 255, 0.55);
-  --tube-glass-stroke:      #3b4651;
-  --tube-glass-highlight:   rgba(255, 255, 255, 0.7);
-  --tube-shadow:            rgba(0, 0, 0, 0.08);
-  --tube-rim-shadow:        rgba(0, 0, 0, 0.06);
+  --tube-glass-fill:        rgba(255, 255, 255, 0.7);
+  --tube-glass-stroke:      #2f3a48;
+  --tube-glass-highlight:   rgba(255, 255, 255, 0.8);
+  --tube-shadow:            rgba(16, 48, 95, 0.10);
+  --tube-rim-shadow:        rgba(16, 48, 95, 0.07);
 
   /* SVG — tube liquid progression (red original → pale rose) */
-  --tube-color-1: rgb(139, 35, 49);
-  --tube-color-2: rgb(186, 85, 99);
-  --tube-color-3: rgb(216, 144, 156);
-  --tube-color-4: rgb(236, 196, 204);
+  --tube-color-1: rgb(164, 38, 44);
+  --tube-color-2: rgb(192, 90, 98);
+  --tube-color-3: rgb(220, 148, 154);
+  --tube-color-4: rgb(240, 200, 204);
 
   /* SVG — petri dish */
-  --colony-fill:      #f7f0e0;
-  --colony-stroke:    #a89668;
-  --agar-grad-1:      #e8d9b3;
-  --agar-grad-2:      #c4ae7c;
-  --plate-wall-fill:  rgba(255, 255, 255, 0.4);
-  --plate-wall-stroke:#3b4651;
-  --agar-shine:       rgba(255, 255, 255, 0.45);
-  --dish-shadow:      rgba(0, 0, 0, 0.15);
+  --colony-fill:      #f5efe0;
+  --colony-stroke:    #a09376;
+  --agar-grad-1:      #e6d9b8;
+  --agar-grad-2:      #b8a684;
+  --plate-wall-fill:  rgba(255, 255, 255, 0.55);
+  --plate-wall-stroke:#2f3a48;
+  --agar-shine:       rgba(255, 255, 255, 0.5);
+  --dish-shadow:      rgba(16, 48, 95, 0.18);
+}
+
+/* Header band and background tints. Scoped to the explicit attribute (not the
+   bare :root default above) so other themes keep the plain ruled header. */
+:root[data-theme="light-default"] {
+  --glow-1: rgba(11, 87, 190, 0.05);
+  --glow-2: rgba(254, 80, 0, 0.04);
+  --glow-3: transparent;
+
+  --header-bg:      #10305f;
+  --header-border:  4px solid #fe5000;
+  --header-rule:    rgba(255, 255, 255, 0.35);
+  --header-eyebrow: #ffc9b0;
+  --header-title:   #ffffff;
+  --header-em:      #9ec5ff;
+  --header-sub:     #d6e0f0;
 }
 
 /* ----- Light: Clean Slate ----- */
